@@ -14,7 +14,8 @@
 - Preserved compatibility with the C reference `argon2` CLI for encoded
   (`-e`) and raw (`-r`) output.
 - Added a performance comparison against the upstream Rust CLI and the C
-  reference implementation.
+  reference implementation, including memory sizes up to 2 GiB.
+- Added an opt-in 256 MiB compatibility test (`cargo test -- --ignored`).
 
 ### Credits
 

@@ -69,7 +69,7 @@
 
         <Package Id='*'
             Keywords='Installer'
-            Description='Generate Argon2 hashes from command line using argon2-rust'
+            Description='Generate Argon2 hashes from command line using the pure-Rust argon2-rust implementation'
             Manufacturer='Joel Schulz-Andres; Julian Dickert; myaux0'
             InstallerVersion='450'
             Languages='1033'

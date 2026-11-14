@@ -62,6 +62,14 @@ fn parse_output(output: &str) -> HashMap<String, String> {
     data
 }
 
+fn build_release_binary() {
+    let status = Command::new("cargo")
+        .args(["build", "--release", "--bin", "argon2-rust-cli"])
+        .status()
+        .expect("Failed to build binary");
+    assert!(status.success(), "Construction of binary failed");
+}
+
 fn verify(i: u32, memory_exp: u32, parallelism: u32, variant: &str) -> bool {
     let salt = generate_random_string(8);
     let password = generate_random_string(12);
@@ -130,12 +138,7 @@ fn verify(i: u32, memory_exp: u32, parallelism: u32, variant: &str) -> bool {
 
 #[test]
 fn test_argon2_compatibility() {
-    // Build release binary first
-    let status = Command::new("cargo")
-        .args(["build", "--release", "--bin", "argon2-rust-cli"])
-        .status()
-        .expect("Failed to build binary");
-    assert!(status.success(), "Construction of binary failed");
+    build_release_binary();
 
     // Basic Test
     assert!(verify(3, 12, 1, "i"), "Basic test failed");
@@ -146,8 +149,10 @@ fn test_argon2_compatibility() {
     for _ in 0..20 {
         let iterations = rng.random_range(1..=5);
         let parallelism = rng.random_range(1..=4);
-        // Ensure valid memory: 2^m >= 8 * p
-        let memory_exp = rng.random_range(6..=12);
+        // Ensure valid memory: 2^m >= 8 * p. Up to 16 MiB keeps the random
+        // suite reasonably fast while still covering more than the old 4 MiB
+        // ceiling.
+        let memory_exp = rng.random_range(6..=14);
         let var_idx = rng.random_range(0..variants.len());
         let variant = variants[var_idx];
 
@@ -158,6 +163,16 @@ fn test_argon2_compatibility() {
             );
         }
     }
+}
+
+#[test]
+#[ignore = "allocates 256 MiB; run explicitly with --ignored"]
+fn test_high_memory_compatibility() {
+    build_release_binary();
+    assert!(
+        verify(3, 18, 4, "id"),
+        "256 MiB Argon2id compatibility test failed"
+    );
 }
 
 // Debug binary is always built by `cargo test` for integration tests
