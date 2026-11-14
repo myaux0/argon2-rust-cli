@@ -8,6 +8,7 @@
   pure-Rust `argon2-rust` implementation.
 - Renamed the package and binary to `argon2-rust-cli`.
 - Updated the README, installer metadata and integration tests for the fork.
+- Use the current `macos-15` runner for Apple Silicon release builds.
 
 ### Added
 

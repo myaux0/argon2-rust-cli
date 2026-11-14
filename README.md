@@ -93,12 +93,17 @@ with a fixed password and salt and `-e` output:
 | Argon2d, 16 MiB, t=5, p=1 | **46.4 ms** | 64.8 ms | 68.4 ms |
 | Argon2id, 64 MiB, t=3, p=4 | **49.3 ms** | 151.4 ms | 88.9 ms |
 | Argon2id, 256 MiB, t=3, p=4 | **148.1 ms** | 586.1 ms | 333.3 ms |
-| Argon2id, 1 GiB, t=1, p=4 | **228.3 ms** | 895.8 ms | 361.9 ms |
+| Argon2id, 1 GiB, t=1, p=4 | **220.5 ms** | 889.2 ms | 345.5 ms |
 | Argon2id, 2 GiB, t=1, p=4 | **443.6 ms** | 1789.5 ms | 629.6 ms |
 
 The 2 GiB row matches RFC 9106's high-memory profile. At that size this fork is
 about 4.0x faster than the upstream RustCrypto CLI and 1.4x faster than the C
 reference on the test machine.
+
+These rows use `-e`, so they measure one hash. The default full output also
+verifies the result, which hashes a second time: for 1 GiB at t=1, p=4 the full
+command measured about 407 ms for this fork, 1.76 s for upstream RustCrypto and
+685 ms for the C reference.
 
 Lower is better. Timings vary by machine, CPU frequency and system load; run
 `hyperfine` locally if you need numbers for your hardware. The 2 GiB row uses
