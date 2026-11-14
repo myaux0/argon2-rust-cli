@@ -5,7 +5,7 @@ use std::process::Command;
 
 const REF_BINARY: &str = "argon2";
 // We assume the binary is at the standard release location relative to the test runner.
-const RUST_BINARY: &str = "./target/release/argon2-cli";
+const RUST_BINARY: &str = "./target/release/argon2-rust-cli";
 
 fn generate_random_string(len: usize) -> String {
     let mut rng = rand::rng();
@@ -132,7 +132,7 @@ fn verify(i: u32, memory_exp: u32, parallelism: u32, variant: &str) -> bool {
 fn test_argon2_compatibility() {
     // Build release binary first
     let status = Command::new("cargo")
-        .args(["build", "--release", "--bin", "argon2-cli"])
+        .args(["build", "--release", "--bin", "argon2-rust-cli"])
         .status()
         .expect("Failed to build binary");
     assert!(status.success(), "Construction of binary failed");
@@ -161,7 +161,7 @@ fn test_argon2_compatibility() {
 }
 
 // Debug binary is always built by `cargo test` for integration tests
-const RUST_DEBUG_BINARY: &str = "./target/debug/argon2-cli";
+const RUST_DEBUG_BINARY: &str = "./target/debug/argon2-rust-cli";
 
 #[test]
 fn test_encoded_output_matches_reference() {

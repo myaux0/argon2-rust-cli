@@ -60,17 +60,17 @@
 
     <Product
         Id='*'
-        Name='argon2-cli'
+        Name='argon2-rust-cli'
         UpgradeCode='B9F6078C-1F85-4B80-9D44-98AA7D55E9FD'
-        Manufacturer='Joel Schulz-Andres; Julian Dickert'
+        Manufacturer='Joel Schulz-Andres; Julian Dickert; myaux0'
         Language='1033'
         Codepage='1252'
         Version='$(var.Version)'>
 
         <Package Id='*'
             Keywords='Installer'
-            Description='Generate Argon2 hashes from command line'
-            Manufacturer='Joel Schulz-Andres; Julian Dickert'
+            Description='Generate Argon2 hashes from command line using argon2-rust'
+            Manufacturer='Joel Schulz-Andres; Julian Dickert; myaux0'
             InstallerVersion='450'
             Languages='1033'
             Compressed='yes'
@@ -83,11 +83,11 @@
             DowngradeErrorMessage='A newer version of [ProductName] is already installed. Setup will now exit.'/>
 
         <Media Id='1' Cabinet='media1.cab' EmbedCab='yes' DiskPrompt='CD-ROM #1'/>
-        <Property Id='DiskPrompt' Value='argon2-cli Installation'/>
+        <Property Id='DiskPrompt' Value='argon2-rust-cli Installation'/>
 
         <Directory Id='TARGETDIR' Name='SourceDir'>
             <Directory Id='$(var.PlatformProgramFilesFolder)' Name='PFiles'>
-                <Directory Id='APPLICATIONFOLDER' Name='argon2-cli'>
+                <Directory Id='APPLICATIONFOLDER' Name='argon2-rust-cli'>
                     
                     <!--
                       Enabling the license sidecar file in the installer is a four step process:
@@ -123,9 +123,9 @@
                         <Component Id='binary0' Guid='*'>
                             <File
                                 Id='exe0'
-                                Name='argon2-cli.exe'
+                                Name='argon2-rust-cli.exe'
                                 DiskId='1'
-                                Source='$(var.CargoTargetBinDir)\argon2-cli.exe'
+                                Source='$(var.CargoTargetBinDir)\argon2-rust-cli.exe'
                                 KeyPath='yes'/>
                         </Component>
                     </Directory>
@@ -173,7 +173,7 @@
         <!--<Icon Id='ProductICO' SourceFile='wix\Product.ico'/>-->
         <!--<Property Id='ARPPRODUCTICON' Value='ProductICO' />-->
 
-        <Property Id='ARPHELPLINK' Value='https://github.com/Systemscape/argon2-cli'/>
+        <Property Id='ARPHELPLINK' Value='https://github.com/myaux0/argon2-rust-cli'/>
         
         <UI>
             <UIRef Id='WixUI_FeatureTree'/>

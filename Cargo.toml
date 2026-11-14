@@ -1,16 +1,17 @@
 [package]
-name = "argon2-cli"
-version = "0.2.1"
+name = "argon2-rust-cli"
+version = "0.3.0"
 edition = "2024"
 authors = [
     "Joel Schulz-Andres <joel@systemscape.de>",
     "Julian Dickert <julian@systemscape.de>",
+    "myaux0",
 ]
 categories = ["command-line-utilities", "development-tools",]
-description = "Generate Argon2 hashes from command line"
+description = "Generate Argon2 hashes from command line using the pure-Rust argon2-rust implementation"
 license = "MIT"
 readme = "README.md"
-repository = "https://github.com/Systemscape/argon2-cli"
+repository = "https://github.com/myaux0/argon2-rust-cli"
 keywords = ["argon2", "hash", "cli", "terminal"]
 
 [package.metadata.wix]
@@ -20,7 +21,7 @@ license = false
 eula = false
 
 [dependencies]
-argon2 = "0.5.3"
+argon2-rust = "1.1.0"
 clap = { version = "4.6.1", features = ["derive"] }
 rand_core = { version = "0.6", features = ["getrandom"] }
 hex = "0.4.3"
